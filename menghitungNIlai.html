@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Inputan dan Tabel</title>
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        padding: 20px;
+        background-color: #eef2f7;
+      }
+      h2 {
+        color: #34495e;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      form {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin: 10px 0 5px;
+        font-weight: 500;
+        color: #555;
+      }
+      input[type="text"],
+      input[type="number"] {
+        width: calc(100% - 20px);
+        padding: 12px;
+        margin: 5px 0 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+      input[type="button"] {
+        background-color: #3498db;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+      }
+      input[type="button"]:hover {
+        background-color: #2980b9;
+      }
+      table {
+        border-collapse: collapse;
+        width: 90%;
+        margin-top: 20px;
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+        font-size: 16px;
+      }
+      th {
+        background-color: #3498db;
+        color: white;
+        text-transform: uppercase;
+      }
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+      a {
+        display: block;
+        margin-top: 20px;
+        color: #3498db;
+        text-decoration: none;
+        font-size: 16px;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Form Input Nilai</h2>
+    <form id="inputForm">
+      <label for="nim">NIM:</label>
+      <input type="text" id="nim" name="nim" />
+      <label for="nama">Nama:</label>
+      <input type="text" id="nama" name="nama" />
+      <label for="total_tugas">Total Rata Nila Tugas:</label>
+      <input type="number" id="total_tugas" name="total_tugas" />
+      <label for="total_pbl">Total Rata Nilai PBL:</label>
+      <input type="number" id="total_pbl" name="total_pbl" />
+      <label for="uts">Nilai UTS:</label>
+      <input type="number" id="uts" name="uts" />
+      <label for="uas">Nilai UAS:</label>
+      <input type="number" id="uas" name="uas" />
+      <input type="button" value="Submit" onclick="submitForm()" />
+    </form>
+
+    <script>
+      function submitForm() {
+        var form = document.getElementById("inputForm");
+        var nim = form.elements["nim"].value;
+        var nama = form.elements["nama"].value;
+        var totalTugas = parseFloat(form.elements["total_tugas"].value);
+        var totalPBL = parseFloat(form.elements["total_pbl"].value);
+        var uts = parseFloat(form.elements["uts"].value);
+        var uas = parseFloat(form.elements["uas"].value);
+
+        var totalNilai =
+          0.05 * totalTugas + 0.75 * totalPBL + 0.1 * uts + 0.1 * uas;
+        var kategoriNilai;
+
+        if (totalNilai > 80) {
+          kategoriNilai = "A";
+        } else if (totalNilai >= 75 && totalNilai <= 80) {
+          kategoriNilai = "B+";
+        } else if (totalNilai >= 70 && totalNilai < 75) {
+          kategoriNilai = "B";
+        } else if (totalNilai >= 60 && totalNilai < 70) {
+          kategoriNilai = "C+";
+        } else if (totalNilai >= 50 && totalNilai < 60) {
+          kategoriNilai = "C";
+        } else if (totalNilai >= 40 && totalNilai < 50) {
+          kategoriNilai = "D+";
+        } else {
+          kategoriNilai = "E";
+        }
+
+        var newWindow = window.open("", "_blank");
+        newWindow.document.write(`
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Rincian Nilai Mahasiswa</title>
+                    <style>
+                        body {
+                            font-family: 'Roboto', sans-serif;
+                            text-align: center;
+                            background-color: #eef2f7;
+                            margin: 0;
+                            padding: 20px;
+                        }
+                        h2 {
+                            color: #34495e;
+                            font-size: 24px;
+                            margin-bottom: 20px;
+                        }
+                        table {
+                            border-collapse: collapse;
+                            width: 90%;
+                            margin: 20px auto;
+                            background: #fff;
+                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                            border-radius: 10px;
+                        }
+                        th, td {
+                            border: 1px solid #ddd;
+                            padding: 12px;
+                            text-align: center;
+                            font-size: 16px;
+                        }
+                        th {
+                            background-color: #3498db;
+                            color: white;
+                            text-transform: uppercase;
+                        }
+                        tr:nth-child(even) {
+                            background-color: #f9f9f9;
+                        }
+                        tr:hover {
+                            background-color: #f1f1f1;
+                        }
+                        a {
+                            display: block;
+                            margin-top: 20px;
+                            color: #3498db;
+                            text-decoration: none;
+                            font-size: 16px;
+                        }
+                        a:hover {
+                            text-decoration: underline;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h2>Rincian Nilai Mahasiswa</h2>
+                    <table>
+                        <tr>
+                            <th>NIM</th>
+                            <th>Nama</th>
+                            <th>Total Tugas</th>
+                            <th>Total PBL</th>
+                            <th>UTS</th>
+                            <th>UAS</th>
+                            <th>Total Nilai</th>
+                            <th>Kategori Nilai</th>
+                        </tr>
+                        <tr>
+                            <td>${nim}</td>
+                            <td>${nama}</td>
+                            <td>${totalTugas}</td>
+                            <td>${totalPBL}</td>
+                            <td>${uts}</td>
+                            <td>${uas}</td>
+                            <td>${totalNilai.toFixed(2)}</td>
+                            <td>${kategoriNilai}</td>
+                        </tr>
+                    </table>
+                    <a href="logout.php">Logout</a>
+                </body>
+                </html>
+            `);
+      }
+    </script>
+  </body>
+</html>
